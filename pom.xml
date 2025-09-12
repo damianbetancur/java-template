@@ -50,6 +50,12 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- JavaFX (elige los que necesites: controls, fxml, graphics) -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>21.0.3</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -76,6 +82,16 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                </configuration>
+            </plugin>
+            <!-- Plugin para correr JavaFX sin dolores de cabeza -->
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.8</version>
+                <configuration>
+                    <mainClass>ar.com.itec1misiones.javatemplate.SupermarketApplication</mainClass>
+                    <launcher>com.example.demo.DemoApplication</launcher>
                 </configuration>
             </plugin>
         </plugins>
