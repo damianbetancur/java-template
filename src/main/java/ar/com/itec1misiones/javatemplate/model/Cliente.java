@@ -1,13 +1,21 @@
 package ar.com.itec1misiones.javatemplate.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@Entity
+@Table(name = "clientes")
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Cliente {
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String nombre;
     private String apellido;
 }
