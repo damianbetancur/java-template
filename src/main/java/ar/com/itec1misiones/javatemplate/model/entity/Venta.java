@@ -1,15 +1,31 @@
-package ar.com.itec1misiones.javatemplate.model;
-import lombok.Data;
+package ar.com.itec1misiones.javatemplate.model.entity;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@Entity
+@Table(name = "ventas")
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class Venta {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
     private String fecha;
+
+    @ManyToOne
     private Cliente cliente;
+
+    @ManyToOne
     private Empleado empleado;
+
+    @OneToMany
     private List<LineaDeVenta> lineaDeVentas = new ArrayList<>();
 
     public Venta(String fecha, Cliente cliente, Empleado empleado) {
