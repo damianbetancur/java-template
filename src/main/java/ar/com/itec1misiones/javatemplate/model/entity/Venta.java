@@ -1,7 +1,9 @@
 package ar.com.itec1misiones.javatemplate.model.entity;
+
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +19,7 @@ public class Venta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String fecha;
+    private LocalDate fecha;
 
     @ManyToOne
     private Cliente cliente;
@@ -28,13 +30,5 @@ public class Venta {
     @OneToMany
     private List<LineaDeVenta> lineaDeVentas = new ArrayList<>();
 
-    public Venta(String fecha, Cliente cliente, Empleado empleado) {
-        this.empleado = empleado;
-        this.fecha = fecha;
-        this.cliente = cliente;
-    }
 
-    public void agregarLineaDeVenta(LineaDeVenta lineaDeVenta){
-        this.lineaDeVentas.add(lineaDeVenta);
-    }
 }
