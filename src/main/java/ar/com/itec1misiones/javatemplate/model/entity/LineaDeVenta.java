@@ -15,8 +15,6 @@ public class LineaDeVenta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private int cantidad;
-    private float precioUnitario;
-    private float prectioTotal;
 
     @ManyToOne
     private Producto producto;

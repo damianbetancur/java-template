@@ -15,6 +15,7 @@ public class Producto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String descripcion;
+    private float precioUnitario;
 
     @ManyToOne
     private Proveedor proveedor;
