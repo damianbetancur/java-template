@@ -1,4 +1,4 @@
-package ar.com.itec1misiones.javatemplate.model.service;
+package ar.com.itec1misiones.javatemplate.service;
 
 import java.util.List;
 

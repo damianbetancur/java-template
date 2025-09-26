@@ -1,4 +1,4 @@
-package ar.com.itec1misiones.javatemplate.model.entity;
+package ar.com.itec1misiones.javatemplate.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -6,13 +6,11 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "clientes")
+@Table(name = "empleados")
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Cliente {
-    private static final long serialVersionUID = 1L;
-
+public class Empleado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

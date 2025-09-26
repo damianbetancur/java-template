@@ -1,7 +1,7 @@
-package ar.com.itec1misiones.javatemplate.model.service.impl;
+package ar.com.itec1misiones.javatemplate.service.impl;
 
-import ar.com.itec1misiones.javatemplate.model.entity.Proveedor;
-import ar.com.itec1misiones.javatemplate.model.service.ProveedorService;
+import ar.com.itec1misiones.javatemplate.entity.Proveedor;
+import ar.com.itec1misiones.javatemplate.service.ProveedorService;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package ar.com.itec1misiones.javatemplate.model.entity;
+package ar.com.itec1misiones.javatemplate.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

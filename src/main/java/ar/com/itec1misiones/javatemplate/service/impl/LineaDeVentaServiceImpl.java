@@ -1,7 +1,7 @@
-package ar.com.itec1misiones.javatemplate.model.service.impl;
+package ar.com.itec1misiones.javatemplate.service.impl;
 
-import ar.com.itec1misiones.javatemplate.model.entity.LineaDeVenta;
-import ar.com.itec1misiones.javatemplate.model.service.LineaDeVentaService;
+import ar.com.itec1misiones.javatemplate.entity.LineaDeVenta;
+import ar.com.itec1misiones.javatemplate.service.LineaDeVentaService;
 
 import java.util.List;
 

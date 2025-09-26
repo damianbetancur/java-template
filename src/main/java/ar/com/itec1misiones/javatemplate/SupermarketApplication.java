@@ -1,5 +1,6 @@
 package ar.com.itec1misiones.javatemplate;
 
+import ar.com.itec1misiones.javatemplate.controller.ClienteController;
 import ar.com.itec1misiones.javatemplate.view.JavaFxApp;
 import javafx.application.Application;
 import org.springframework.boot.SpringApplication;
@@ -12,6 +13,8 @@ public class SupermarketApplication {
 
         SpringApplication.run(SupermarketApplication.class, args);
         Application.launch(JavaFxApp.class, args);
+
+
     }
 
 }

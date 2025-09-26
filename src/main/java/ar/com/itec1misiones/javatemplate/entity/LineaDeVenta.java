@@ -1,4 +1,4 @@
-package ar.com.itec1misiones.javatemplate.model.entity;
+package ar.com.itec1misiones.javatemplate.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -6,17 +6,21 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "productos")
+@Table(name = "lineas_de_ventas")
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Producto {
+public class LineaDeVenta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String descripcion;
-    private float precioUnitario;
+    private int cantidad;
 
     @ManyToOne
-    private Proveedor proveedor;
+    private Producto producto;
+
+    @ManyToOne
+    private Venta venta;
+
+
 }
