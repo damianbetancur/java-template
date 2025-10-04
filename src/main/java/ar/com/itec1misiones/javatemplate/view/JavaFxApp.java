@@ -30,11 +30,11 @@ public class JavaFxApp extends Application {
         // 1) Intento con el ClassLoader (ruta SIN "/" inicial)
         URL fxmlUrl = Thread.currentThread()
                 .getContextClassLoader()
-                .getResource("view/inicio.fxml");
+                .getResource("view/cliente.fxml");
 
         // 2) Fallback con getResource (ruta CON "/" inicial)
         if (fxmlUrl == null) {
-            fxmlUrl = JavaFxApp.class.getResource("/view/inicio.fxml");
+            fxmlUrl = JavaFxApp.class.getResource("/view/cliente.fxml");
         }
 
         if (fxmlUrl == null) {
