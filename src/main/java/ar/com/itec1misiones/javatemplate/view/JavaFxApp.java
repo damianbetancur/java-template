@@ -1,57 +1,66 @@
 package ar.com.itec1misiones.javatemplate.view;
 
 import ar.com.itec1misiones.javatemplate.SupermarketApplication;
-import ar.com.itec1misiones.javatemplate.controller.ClienteController;
 import javafx.application.Application;
-import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
+import java.net.URL;
+import java.util.Objects;
+
 public class JavaFxApp extends Application {
 
     private ConfigurableApplicationContext context;
-    private Scene escenaPrincipal;
 
     @Override
     public void init() {
+        // Levantamos Spring UNA sola vez. Desactivamos el admin JMX para evitar el choque del MBean.
         this.context = new SpringApplicationBuilder(SupermarketApplication.class)
-                .headless(false)
+                .properties("spring.application.admin.enabled=false")
                 .run(getParameters().getRaw().toArray(new String[0]));
     }
 
     @Override
-    public void start(Stage primaryStage) {
-        Button btnNuevo = new Button("Crear Cliente");
-        btnNuevo.setOnAction(e -> {
-            ClienteController controller = context.getBean(ClienteController.class);
-            CrearClienteScene crear = new CrearClienteScene(
-                    primaryStage,
-                    controller,
-                    () -> { primaryStage.setScene(escenaPrincipal); primaryStage.centerOnScreen(); }
+    public void start(Stage stage) throws Exception {
+        // 1) Intento con el ClassLoader (ruta SIN "/" inicial)
+        URL fxmlUrl = Thread.currentThread()
+                .getContextClassLoader()
+                .getResource("view/inicio.fxml");
+
+        // 2) Fallback con getResource (ruta CON "/" inicial)
+        if (fxmlUrl == null) {
+            fxmlUrl = JavaFxApp.class.getResource("/view/inicio.fxml");
+        }
+
+        if (fxmlUrl == null) {
+            String cpRoot = JavaFxApp.class.getProtectionDomain()
+                    .getCodeSource().getLocation().toExternalForm();
+            throw new IllegalStateException(
+                    "No se encontró 'view/controller/inicio.fxml' en el classpath.\n" +
+                            "Classpath root: " + cpRoot + "\n" +
+                            "Esperado: target/classes/view/controller/inicio.fxml (Maven) o build/resources/main/... (Gradle)."
             );
-            primaryStage.setScene(crear.getScene());
-            primaryStage.centerOnScreen();
-        });
+        }
 
-        VBox root = new VBox(15, new Label("Menú Principal"), btnNuevo);
-        escenaPrincipal = new Scene(root, 320, 200);
+        FXMLLoader loader = new FXMLLoader(fxmlUrl);
+        loader.setControllerFactory(context::getBean); // si usás controllers Spring
+        Parent root = loader.load();
 
-        primaryStage.setTitle("Gestión de Clientes");
-        primaryStage.setScene(escenaPrincipal);
-        primaryStage.centerOnScreen();
-        primaryStage.show();
+        Scene scene = new Scene(root);
+        stage.setTitle("Inicio");
+        stage.setScene(scene);
+        stage.show();
     }
 
     @Override
     public void stop() {
-        if (context != null) context.close();
-        Platform.exit();
+        if (context != null) {
+            context.close();
+        }
     }
-
-    public ConfigurableApplicationContext getContext() { return context; }
 }
