@@ -43,10 +43,12 @@ public class ClienteControllerView {
         String apellido = apellido_tfl.getText();
         String dni = dni_tfl.getText();
 
-        ClienteDTO  cliente = new ClienteDTO();
-        cliente.setNombre(nombre);
-        cliente.setApellido(apellido);
-        cliente.setDni(dni);
+        ClienteDTO  cliente =  ClienteDTO.builder()
+                .nombre(nombre)
+                .apellido(apellido)
+                .dni(dni)
+                .build();
+        
 
         try {
             this.controller.createClient(cliente);
