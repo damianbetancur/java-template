@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="ar.com.itec1misiones.javatemplate.view.controller.ClienteControllerView"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <children>
+        <Label layoutX="225.0" layoutY="42.0" text="Nombre" style="-fx-font-weight: bold; -fx-font-size: 14;" />
+        <TextField fx:id="nombre_tfl" layoutX="226.0" layoutY="62.0" />
+
+        <Label layoutX="225.0" layoutY="118.0" text="Apellido" style="-fx-font-weight: bold; -fx-font-size: 14;" />
+        <TextField fx:id="apellido_tfl" layoutX="225.0" layoutY="138.0" />
+
+        <Label layoutX="225.0" layoutY="200.0" text="DNI" style="-fx-font-weight: bold; -fx-font-size: 14;" />
+        <TextField fx:id="dni_tfl" layoutX="225.0" layoutY="220.0" />
+
+        <Button fx:id="guardar_btn"
+                layoutX="11.0" layoutY="353.0"
+                prefHeight="33.0" prefWidth="578.0"
+                text="Guardar"
+                onAction="#onGuardar" />
+    </children>
+
+</AnchorPane>
