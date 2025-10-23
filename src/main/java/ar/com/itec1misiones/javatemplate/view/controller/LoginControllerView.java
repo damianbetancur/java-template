@@ -44,10 +44,6 @@ public class LoginControllerView {
 
     @FXML
     public void login() {
-        // Supongamos que tu servicio devuelve un List<ClienteDTO>
-        List<ClienteDTO> clientes = controller.findAll();
 
-        // Convertir la lista normal a una lista observable
-        tableView.setItems(FXCollections.observableArrayList(clientes));
     }
 }
