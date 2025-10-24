@@ -23,7 +23,7 @@ public class InicioController {
     private void onClientes() {
         try {
             // Cargar el archivo FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Cliente.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/GestionCliente.fxml"));
 
             // Indicarle a FXMLLoader que use los beans de Spring para crear los controladores
             loader.setControllerFactory(AppContextProvider.getContext()::getBean);

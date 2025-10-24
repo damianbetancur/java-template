@@ -58,4 +58,44 @@ public class ClienteControllerView {
 
 
     }
+
+    @FXML
+    public void onAgregar(ActionEvent e) {
+        String nombre = nombre_tfl.getText();
+        String apellido = apellido_tfl.getText();
+        String dni = dni_tfl.getText();
+
+        ClienteDTO  cliente = new ClienteDTO();
+        cliente.setNombre(nombre);
+        cliente.setApellido(apellido);
+        cliente.setDni(dni);
+
+        try {
+            this.controller.createClient(cliente);
+            this.mostrarMensaje("Alerta","Cliente guardado correctamente");
+            this.limpiarCampos();
+        }catch (Exception ex) {
+            this.mostrarMensaje("Error", ex.getMessage());
+        }
+    }
+
+    @FXML
+    public void onModificar(ActionEvent e) {
+
+    }
+
+    @FXML
+    public void onEliminar(ActionEvent e) {
+
+    }
+
+    @FXML
+    public void onBuscar(ActionEvent e) {
+
+    }
+
+    @FXML
+    public void onSelected(ActionEvent e) {
+
+    }
 }
