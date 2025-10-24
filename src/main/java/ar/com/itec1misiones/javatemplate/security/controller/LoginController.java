@@ -6,16 +6,16 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class UserController {
+public class LoginController {
 
     private final LoginService loginService;
 
     public String login(String user, String password) {
         if (this.loginService.login(user, password)) {
-            return "Login realizado com sucesso";
+            return "Login realizado con exito";
         }
         else {
-            return "Usuario o Password invalido";
+            return "Error: Usuario o Password invalido";
         }
     }
 }

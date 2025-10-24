@@ -1,49 +1,68 @@
 package ar.com.itec1misiones.javatemplate.view.controller;
 
-import ar.com.itec1misiones.javatemplate.controller.ClienteController;
-import ar.com.itec1misiones.javatemplate.dto.ClienteDTO;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import ar.com.itec1misiones.javatemplate.security.controller.LoginController;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
+import org.springframework.context.ApplicationContext; // Necesitarás Spring Context
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import java.io.IOException;
 
 @Component
 public class LoginControllerView {
-    private final ClienteController controller;
-    @FXML private TableView<ClienteDTO> tableView;
-    @FXML private TableColumn<ClienteDTO, Integer> nro;
-    @FXML private TableColumn<ClienteDTO, String> dni;
-    @FXML private TableColumn<ClienteDTO, String> nombre;
-    @FXML private TableColumn<ClienteDTO, String> apellido;
+    private final LoginController controller;
+    private final ApplicationContext applicationContext; // 💡 Nuevo: Para cargar el controlador de Spring
 
-    private ObservableList<ClienteDTO> clientes = FXCollections.observableArrayList();
+    @FXML private TextField user_tfl;
+    @FXML private PasswordField password_pfl;
+    @FXML private Button login_btn;
+    @FXML private Label message_lbl;
 
-    public LoginControllerView(ClienteController controller) {
+    // 💡 Modificación: Inyectar ApplicationContext para obtener el controlador de la vista de inicio
+    public LoginControllerView(LoginController controller, ApplicationContext applicationContext) {
         this.controller = controller;
-    }
-
-    @FXML
-    public void initialize() {
-        // Asociar columnas con los getters del modelo
-        nro.setCellValueFactory(new PropertyValueFactory<>("nro"));
-        dni.setCellValueFactory(new PropertyValueFactory<>("dni"));
-        nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        apellido.setCellValueFactory(new PropertyValueFactory<>("apellido"));
-
-        // Configurar tamaño automático
-        if (tableView != null)
-            tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        if (tableView != null)
-            tableView.setItems(clientes);
+        this.applicationContext = applicationContext;
     }
 
     @FXML
     public void login() {
+        String result = this.controller.login(user_tfl.getText(), password_pfl.getText());
+        message_lbl.setText(result);
 
+        // 1. Verificar si el login fue exitoso (Ajusta la condición según tu lógica)
+        // ASUMO que si 'result' no contiene la palabra "Error", el login fue exitoso.
+        if (result != null && !result.contains("Error")) {
+
+            // 2. Cerrar la ventana de Login
+            Stage currentStage = (Stage) login_btn.getScene().getWindow();
+            currentStage.close();
+
+            // 3. Abrir la nueva ventana (Vista de Inicio)
+            try {
+                // 3.1 Cargar el FXML. Usamos un FXMLLoader personalizado para que Spring maneje el controlador
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Inicio.fxml"));
+
+                // 3.2 Establecer el ControllerFactory para que Spring inyecte el controlador (InicioControllerView)
+                fxmlLoader.setControllerFactory(applicationContext::getBean);
+
+                Parent root = fxmlLoader.load();
+
+                Stage stage = new Stage();
+                stage.setTitle("Sistema - Inicio"); // Título de la nueva ventana
+                stage.setScene(new Scene(root));
+                stage.show();
+
+            } catch (IOException e) {
+                // Manejo de error si no se encuentra o no se puede cargar el FXML de Inicio
+                e.printStackTrace();
+                message_lbl.setText("Error al cargar la vista de inicio.");
+                // Opcionalmente: reabrir la ventana de login si falla la carga.
+
+            }
+        }
     }
 }
