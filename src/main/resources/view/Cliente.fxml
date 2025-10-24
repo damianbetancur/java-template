@@ -6,8 +6,8 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="ar.com.itec1misiones.javatemplate.view.controller.ClienteControllerView"
-            prefHeight="400.0" prefWidth="600.0">
+            prefHeight="400.0" prefWidth="600.0"
+            fx:controller="ar.com.itec1misiones.javatemplate.view.controller.ClienteControllerView">
 
     <children>
         <Label layoutX="225.0" layoutY="42.0" text="Nombre" style="-fx-font-weight: bold; -fx-font-size: 14;" />
@@ -23,7 +23,7 @@
                 layoutX="11.0" layoutY="353.0"
                 prefHeight="33.0" prefWidth="578.0"
                 text="Guardar"
-                onAction="#onGuardar" />
+                onAction="#onGuardar"/>
     </children>
 
 </AnchorPane>

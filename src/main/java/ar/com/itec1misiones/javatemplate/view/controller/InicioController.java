@@ -1,36 +1,42 @@
 package ar.com.itec1misiones.javatemplate.view.controller;
 
-import javafx.event.ActionEvent;
+import ar.com.itec1misiones.javatemplate.config.AppContextProvider;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.AnchorPane;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
 
 @Component
 public class InicioController {
 
-    @FXML private TextField dniField;
-    @FXML private TextField nombreField;
-    @FXML private TextField apellidoField;
-    @FXML private Label estadoLabel;
-    @FXML private Button aceptarBtn;
+    @Autowired
+    private ApplicationContext context;
 
     @FXML
-    public void initialize() {
-        if (estadoLabel != null) {
-            estadoLabel.setText("Listo");
+    private AnchorPane mainContent;
+
+    @FXML
+    private void onClientes() {
+        try {
+            // Cargar el archivo FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Cliente.fxml"));
+
+            // Indicarle a FXMLLoader que use los beans de Spring para crear los controladores
+            loader.setControllerFactory(AppContextProvider.getContext()::getBean);
+
+            // Cargar el layout
+            AnchorPane clientePane = loader.load();
+
+            // Mostrarlo donde corresponda (por ejemplo, en tu contenedor principal)
+            mainContent.getChildren().setAll(clientePane);
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    @FXML
-    private void onAceptar(ActionEvent e) {
-        String dni = dniField != null ? dniField.getText() : "";
-        String nombre = nombreField != null ? nombreField.getText() : "";
-        String apellido = apellidoField != null ? apellidoField.getText() : "";
-        if (estadoLabel != null) {
-            estadoLabel.setText("OK: " + dni + " - " + nombre + " " + apellido);
-        }
-        // Aquí podés inyectar servicios Spring y ejecutar lógica de negocio.
-    }
 }
