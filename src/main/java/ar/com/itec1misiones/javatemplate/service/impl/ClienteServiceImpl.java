@@ -6,6 +6,7 @@ import ar.com.itec1misiones.javatemplate.repository.ClienteRepository;
 import ar.com.itec1misiones.javatemplate.service.ClienteService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,7 +20,15 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public List<ClienteDTO> findAll() {
-        return List.of();
+        List<ClienteDTO> clientesResultados = new ArrayList<>();
+        for(Cliente clienteRecorrido: clienteRepository.findAll()){
+            clientesResultados.add(ClienteDTO.builder()
+                    .dni(clienteRecorrido.getDni())
+                    .nombre(clienteRecorrido.getNombre())
+                    .apellido(clienteRecorrido.getApellido())
+                    .build());
+        }
+        return clientesResultados;
     }
 
     @Override
