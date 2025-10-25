@@ -21,4 +21,8 @@ public class ClienteController {
     public void createClient(ClienteDTO clienteDTO){
         clienteService.create(clienteDTO);
     }
+
+    public List<ClienteDTO> findAll(){
+        return  clienteService.findAll();
+    }
 }
