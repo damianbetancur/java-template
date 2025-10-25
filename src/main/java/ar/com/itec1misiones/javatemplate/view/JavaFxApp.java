@@ -26,14 +26,14 @@ public class JavaFxApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        // 1) Intenta localizar el archivo cliente.fxml dentro del classpath, usando el ClassLoader, este no usa "/" al inicio de la ruta.
+        // 1) Intenta localizar el archivo Cliente.fxml dentro del classpath, usando el ClassLoader, este no usa "/" al inicio de la ruta.
         URL fxmlUrl = Thread.currentThread()
                 .getContextClassLoader()
-                .getResource("view/cliente.fxml");
+                .getResource("view/Login.fxml");
 
         // 2) Si el primer intento falló intenta nuevamente usando Class.getResource. En este caso, la ruta lleva un "/" inicial.
         if (fxmlUrl == null) {
-            fxmlUrl = JavaFxApp.class.getResource("/view/cliente.fxml");
+            fxmlUrl = JavaFxApp.class.getResource("/view/Login.fxml");
         }
 
         // Si ninguno de los dos intentos anteriores encuentra el archivo, lanza una excepción con un mensaje detallado.
@@ -41,9 +41,9 @@ public class JavaFxApp extends Application {
             String cpRoot = JavaFxApp.class.getProtectionDomain()
                     .getCodeSource().getLocation().toExternalForm();
             throw new IllegalStateException(
-                    "No se encontró 'view/controller/cliente.fxml' en el classpath.\n" +
+                    "No se encontró 'view/controller/Login.fxml' en el classpath.\n" +
                             "Classpath root: " + cpRoot + "\n" +
-                            "Esperado: target/classes/view/controller/cliente.fxml (Maven) o build/resources/main/... (Gradle)."
+                            "Esperado: target/classes/view/controller/Login.fxml (Maven) o build/resources/main/... (Gradle)."
             );
         }
 
