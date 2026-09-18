@@ -1,6 +1,6 @@
 package ar.com.itec1misiones.javatemplate.view.controller;
 
-import ar.com.itec1misiones.javatemplate.security.controller.LoginController;
+import ar.com.itec1misiones.javatemplate.service.LoginService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,7 +14,7 @@ import java.io.IOException;
 
 @Component
 public class LoginControllerView {
-    private final LoginController controller;
+    private final LoginService loginService;
     private final ApplicationContext applicationContext; // 💡 Nuevo: Para cargar el controlador de Spring
 
     @FXML private TextField user_tfl;
@@ -23,19 +23,20 @@ public class LoginControllerView {
     @FXML private Label message_lbl;
 
     // 💡 Modificación: Inyectar ApplicationContext para obtener el controlador de la vista de inicio
-    public LoginControllerView(LoginController controller, ApplicationContext applicationContext) {
-        this.controller = controller;
+    public LoginControllerView(LoginService loginService, ApplicationContext applicationContext) {
+        this.loginService = loginService;
         this.applicationContext = applicationContext;
     }
 
     @FXML
     public void login() {
-        String result = this.controller.login(user_tfl.getText(), password_pfl.getText());
+        boolean autenticado = this.loginService.autenticar(user_tfl.getText(), password_pfl.getText());
+        String result = autenticado ? "Login realizado con exito" : "Error: Usuario o Password invalido";
         message_lbl.setText(result);
 
         // 1. Verificar si el login fue exitoso (Ajusta la condición según tu lógica)
         // ASUMO que si 'result' no contiene la palabra "Error", el login fue exitoso.
-        if (result != null && !result.contains("Error")) {
+        if (autenticado) {
 
             // 2. Cerrar la ventana de Login
             Stage currentStage = (Stage) login_btn.getScene().getWindow();
