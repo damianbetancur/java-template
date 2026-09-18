@@ -14,6 +14,8 @@ import java.net.URL;
 
 public class JavaFxApp extends Application {
 
+    private static Stage primaryStage;
+    private static JavaFxApp appInstance;
     private ConfigurableApplicationContext context; //contexto de spring
 
     @Override
@@ -26,35 +28,43 @@ public class JavaFxApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        // 1) Intenta localizar el archivo Cliente.fxml dentro del classpath, usando el ClassLoader, este no usa "/" al inicio de la ruta.
-        URL fxmlUrl = Thread.currentThread()
-                .getContextClassLoader()
-                .getResource("view/Login.fxml");
+        primaryStage = stage;
+        appInstance = this;
+        showScene("view/login.fxml", "Login");
+    }
 
-        // 2) Si el primer intento falló intenta nuevamente usando Class.getResource. En este caso, la ruta lleva un "/" inicial.
-        if (fxmlUrl == null) {
-            fxmlUrl = JavaFxApp.class.getResource("/view/Login.fxml");
+    public static void showScene(String resourcePath, String title) {
+        if (primaryStage == null || appInstance == null || appInstance.context == null) {
+            return;
         }
 
-        // Si ninguno de los dos intentos anteriores encuentra el archivo, lanza una excepción con un mensaje detallado.
+        URL fxmlUrl = Thread.currentThread()
+                .getContextClassLoader()
+                .getResource(resourcePath);
+
+        if (fxmlUrl == null) {
+            fxmlUrl = JavaFxApp.class.getResource("/" + resourcePath);
+        }
+
         if (fxmlUrl == null) {
             String cpRoot = JavaFxApp.class.getProtectionDomain()
                     .getCodeSource().getLocation().toExternalForm();
             throw new IllegalStateException(
-                    "No se encontró 'view/controller/Login.fxml' en el classpath.\n" +
-                            "Classpath root: " + cpRoot + "\n" +
-                            "Esperado: target/classes/view/controller/Login.fxml (Maven) o build/resources/main/... (Gradle)."
+                    "No se encontró '" + resourcePath + "' en el classpath.\n" +
+                            "Classpath root: " + cpRoot
             );
         }
 
-        FXMLLoader loader = new FXMLLoader(fxmlUrl); // Crea un FXMLLoader con la URL del archivo encontrado.
-        loader.setControllerFactory(context::getBean); // Permite que los controladores del FXML sean gestionados por Spring, para poder usar inyección de dependencias.
-        Parent root = loader.load(); // Carga el FXML y genera un árbol de nodos JavaFX (Parent root) que representa la interfaz gráfica.
-
-        Scene scene = new Scene(root); // Crea una nueva Scene usando el root del FXML cargado.
-        stage.setTitle("Inicio"); // Establece el título de la ventana.
-        stage.setScene(scene); // Asigna la escena al Stage (la ventana principal).
-        stage.show(); // Muestra la ventana con show().
+        try {
+            FXMLLoader loader = new FXMLLoader(fxmlUrl);
+            loader.setControllerFactory(appInstance.context::getBean);
+            Parent root = loader.load();
+            primaryStage.setScene(new Scene(root));
+            primaryStage.setTitle(title);
+            primaryStage.show();
+        } catch (Exception e) {
+            throw new IllegalStateException("Error al cargar la vista: " + resourcePath, e);
+        }
     }
 
     @Override

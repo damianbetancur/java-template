@@ -60,10 +60,10 @@
             <MenuItem mnemonicParsing="false" text="Quit" />
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Gestión">
+        <Menu mnemonicParsing="false" text="gestion">
           <items>
-            <MenuItem fx:id="menu_cliente" mnemonicParsing="false" onAction="#onClientes" text="Clientes" />
-            <MenuItem mnemonicParsing="false" text="Redo" />
+            <MenuItem mnemonicParsing="false" text="clientes" />
+            <MenuItem mnemonicParsing="false" text="nueva ventas" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" text="Cut" />
             <MenuItem mnemonicParsing="false" text="Copy" />
@@ -81,9 +81,6 @@
         </Menu>
       </menus>
     </MenuBar>
-  <AnchorPane fx:id="mainContent"
-              maxHeight="-1.0"
-              maxWidth="-1.0"
-              VBox.vgrow="ALWAYS" />
+      <Pane prefHeight="200.0" prefWidth="200.0" />
   </children>
 </AnchorPane>
