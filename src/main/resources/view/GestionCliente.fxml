@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="546.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ar.com.itec1misiones.javatemplate.view.controller.ClienteControllerView">
+    <children>
+        <TextField fx:id="buscar_tfl" layoutX="140.0" layoutY="35.0" prefHeight="25.0" prefWidth="241.0" />
+        <Button fx:id="buscar_btn" layoutX="409.0" layoutY="35.0" mnemonicParsing="false" onAction="#onBuscar" text="Buscar" />
+        <ScrollPane layoutX="45.0" layoutY="112.0" prefHeight="200.0" prefWidth="514.0">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                    <children>
+                        <TableView fx:id="tableViewCliente" onMouseClicked="#onSelected" prefHeight="200.0" prefWidth="514.0">
+                            <columns>
+                                <TableColumn fx:id="numero_tc" prefWidth="57.0" text="Nº" />
+                                <TableColumn fx:id="dni_tc" prefWidth="154.0" text="DNI" />
+                                <TableColumn fx:id="nombre_tc" prefWidth="133.0" text="Nombre" />
+                                <TableColumn fx:id="apellido_tc" prefWidth="156.0" text="Apellido" />
+                            </columns>
+                        </TableView>
+                    </children>
+                </AnchorPane>
+            </content>
+        </ScrollPane>
+        <Label layoutX="229.0" layoutY="336.0" text="Cliente">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <Label layoutX="45.0" layoutY="382.0" text="DNI" />
+        <Label layoutX="45.0" layoutY="424.0" text="Nombre" />
+        <Label layoutX="45.0" layoutY="465.0" text="Apellido" />
+        <TextField fx:id="dni_tfl" layoutX="123.0" layoutY="378.0" prefHeight="25.0" prefWidth="266.0" />
+        <TextField fx:id="nombre_tfl" layoutX="123.0" layoutY="420.0" prefHeight="25.0" prefWidth="266.0" />
+        <TextField fx:id="apellido_tfl" layoutX="123.0" layoutY="461.0" prefHeight="25.0" prefWidth="266.0" />
+        <Button fx:id="agregar_btn" layoutX="480.0" layoutY="378.0" mnemonicParsing="false" onAction="#onAgregar" prefHeight="25.0" prefWidth="73.0" text="Agregar" />
+        <Button fx:id="modificar_tfl" layoutX="480.0" layoutY="420.0" mnemonicParsing="false" onAction="#onModificar" prefHeight="25.0" prefWidth="73.0" text="Modificar" />
+        <Button fx:id="eliminar_tfl" layoutX="479.0" layoutY="461.0" mnemonicParsing="false" onAction="#onEliminar" prefHeight="25.0" prefWidth="73.0" text="Eliminar" />
+      <Button fx:id="cancelar_btn" layoutX="123.0" layoutY="507.0" mnemonicParsing="false" onAction="#onCancelar" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: #d35353;" text="Cancelar" />
+      <Button fx:id="aceptar_btn" layoutX="294.0" layoutY="507.0" mnemonicParsing="false" onAction="#onAceptar" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: #65c65b;" text="Aceptar" />
+    </children>
+</AnchorPane>
