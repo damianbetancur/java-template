@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ar.com.itec1misiones.javatemplate.view.controller.ClienteControllerView2">
+   <children>
+       <TableView fx:id="tableView" layoutX="113.0" layoutY="59.0" prefHeight="200.0" prefWidth="378.0">
+        <columns>
+          <TableColumn prefWidth="49.20001220703125" text="nro" fx:id="nro"/>
+          <TableColumn prefWidth="104.79998779296875" text="dni" fx:id="dni"/>
+            <TableColumn prefWidth="102.39996337890625" text="nombre" fx:id="nombre"/>
+            <TableColumn prefWidth="121.4000244140625" text="apellido" fx:id="apellido"/>
+        </columns>
+      </TableView>
+       <Button fx:id="buscar_btn"
+               layoutX="11.0" layoutY="353.0"
+               prefHeight="33.0" prefWidth="578.0"
+               text="buscar"
+               onAction="#findAll" />
+   </children>
+
+</AnchorPane>
