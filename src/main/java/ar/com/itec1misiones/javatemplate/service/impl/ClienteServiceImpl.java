@@ -23,9 +23,9 @@ public class ClienteServiceImpl implements ClienteService {
         List<ClienteDTO> clientesResultados = new ArrayList<>();
         for(Cliente clienteRecorrido: clienteRepository.findAll()){
             clientesResultados.add(ClienteDTO.builder()
-                    .dni(clienteRecorrido.getDni())
-                    .nombre(clienteRecorrido.getNombre())
-                    .apellido(clienteRecorrido.getApellido())
+                            .dni(clienteRecorrido.getDni())
+                            .nombre(clienteRecorrido.getNombre())
+                            .apellido(clienteRecorrido.getApellido())
                     .build());
         }
         return clientesResultados;
